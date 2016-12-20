@@ -1,7 +1,10 @@
 package main
 
-import "net"
-import "fmt"
+import (
+	"fmt"
+	"net"
+	"strings"
+)
 
 func getDocker0Network() net.IPNet {
 	iface, _ := net.InterfaceByName("docker0")
@@ -17,7 +20,8 @@ func getDocker0Network() net.IPNet {
 func getIps(
 	excludeLocalhost bool,
 	excludeDockerNetwork bool,
-	separator string) []string {
+	onlyipv4 bool,
+	onlyipv6 bool) []string {
 
 	adresses, _ := net.InterfaceAddrs()
 	ips := make([]string, 0)
@@ -25,24 +29,43 @@ func getIps(
 	docker0Network := getDocker0Network()
 
 	for _, addr := range adresses {
-		parsedIP := net.ParseIP(addr.String())
-
-		fmt.Println(addr.String())
+		parsedIP, _, _ := net.ParseCIDR(addr.String())
 
 		if excludeLocalhost && parsedIP.IsLoopback() {
 			continue
 		} else if excludeDockerNetwork && docker0Network.Contains(parsedIP) {
 			continue
-		} else {
-			ips = append(ips, parsedIP.String())
+		} else if onlyipv4 && parsedIP.To4() == nil {
+			continue
+		} else if onlyipv6 && parsedIP.To4() != nil {
+			continue
 		}
 
-		fmt.Println(parsedIP.String())
+		ips = append(ips, parsedIP.String())
 	}
 
 	return ips
 }
 
+func formatOutput(ips []string, separator string) string {
+	return strings.Join(ips, separator)
+}
+
 func main() {
-	fmt.Println(getIps(true, true, ","))
+	excludeLocalhost := false
+	excludeDockerNetwork := true
+	onlyipv4 := true
+	onlyipv6 := false
+	separator := ","
+
+	ips := getIps(
+		excludeLocalhost,
+		excludeDockerNetwork,
+		onlyipv4,
+		onlyipv6,
+	)
+
+	output := formatOutput(ips, separator)
+
+	fmt.Println(output)
 }
