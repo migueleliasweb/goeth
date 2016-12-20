@@ -6,15 +6,13 @@ import (
 	"strings"
 )
 
-func getDocker0Network() net.IPNet {
+func getDocker0Network() *net.IPNet {
 	iface, _ := net.InterfaceByName("docker0")
 	addresses, _ := iface.Addrs()
-	docker0IP := net.ParseIP(addresses[0].String())
 
-	return net.IPNet{
-		IP:   docker0IP,
-		Mask: docker0IP.DefaultMask(),
-	}
+	_, parsedIPNet, _ := net.ParseCIDR(addresses[0].String())
+
+	return parsedIPNet
 }
 
 func getIps(
@@ -52,7 +50,7 @@ func formatOutput(ips []string, separator string) string {
 }
 
 func main() {
-	excludeLocalhost := false
+	excludeLocalhost := true
 	excludeDockerNetwork := true
 	onlyipv4 := true
 	onlyipv6 := false
