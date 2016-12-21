@@ -4,7 +4,7 @@
 
 ## Installing
 
-All releases comes with a bundled compiled GoETH binary file. You can just grab it from github releases and add it to your $PATH:
+All releases comes with a bundled compiled GoETH binary file. You can just grab it from github releases and add it to your *$PATH*:
 
 ````bash
 $ wget https://github.com/migueleliasweb/goeth/raw/master/dist/goeth
