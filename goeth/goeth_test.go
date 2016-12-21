@@ -84,11 +84,11 @@ func TestFormatOutput(t *testing.T) {
 	}
 
 	output := formatOutput(IPs, "|")
-	correct_output := "127.0.0.1|50.50.50.50"
+	correctOutput := "127.0.0.1|50.50.50.50"
 
-	if output != correct_output {
+	if output != correctOutput {
 		t.Errorf("Wrong output format. Should have been [%s], but was [%s]",
-			correct_output,
+			correctOutput,
 			output,
 		)
 	}
