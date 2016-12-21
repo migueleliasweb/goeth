@@ -2,6 +2,9 @@
 
 **GoETH** is a Go program that aims to help automate scripts find a suitable IP address to bind to.
 
+![Go Report Card](https://goreportcard.com/report/github.com/migueleliasweb/goeth)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## Installing
 
 All releases comes with a bundled compiled GoETH binary file. You can just grab it from github releases and add it to your *$PATH*:
