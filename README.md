@@ -10,7 +10,7 @@ All releases comes with a bundled compiled GoETH binary file. You can just grab 
 $ wget https://github.com/migueleliasweb/goeth/raw/master/dist/goeth
 $ mv goeth your_path
 $ chmod a+x your_path/goeth
-```
+``
 
 ## Commandline arguments
 
