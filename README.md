@@ -15,6 +15,10 @@ $ mv goeth your_path
 $ chmod a+x your_path/goeth
 ```
 
+## Contributing
+
+Feel free to send PR and open issues.
+
 ## Commandline arguments
 
 All arguments can be passed with on "-" or two "--" dashes.
