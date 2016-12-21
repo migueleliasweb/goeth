@@ -31,3 +31,5 @@ vendor/
 
 # Custom
 /.go
+/dist/*
+/dist/!goeth

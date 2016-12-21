@@ -30,7 +30,7 @@ func excludePrivateIPs(ips []string) []string {
 	filteredIPs := make([]string, 0)
 
 	for _, ip := range ips {
-		if !isLocalIp(net.ParseIP(ip)) {
+		if isLocalIp(net.ParseIP(ip)) {
 			continue
 		}
 
@@ -43,7 +43,7 @@ func excludePublicIPs(ips []string) []string {
 	filteredIPs := make([]string, 0)
 
 	for _, ip := range ips {
-		if isLocalIp(net.ParseIP(ip)) {
+		if !isLocalIp(net.ParseIP(ip)) {
 			continue
 		}
 
@@ -105,13 +105,13 @@ func main() {
 		*allowipv6,
 	)
 
-	// if *onlyPrivate {
-	// 	ips := excludePublicIPs(ips)
-	// }
+	if *onlyPrivate {
+		ips = excludePublicIPs(ips)
+	}
 
-	// if *onlyPublic {
-	// 	ips := excludePrivateIPs(ips)
-	// }
+	if *onlyPublic {
+		ips = excludePrivateIPs(ips)
+	}
 
 	output := formatOutput(ips, *separator)
 
