@@ -2,5 +2,4 @@ language: go
 
 install: true
 go:
-  - 1.6
   - 1.7
