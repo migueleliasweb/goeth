@@ -58,12 +58,12 @@ func getIps(
 	excludeDockerNetwork bool,
 	allowipv6 bool) []string {
 
-	adresses, _ := net.InterfaceAddrs()
+	addresses, _ := net.InterfaceAddrs()
 	ips := make([]string, 0)
 
 	docker0Network := getDocker0Network()
 
-	for _, addr := range adresses {
+	for _, addr := range addresses {
 		parsedIP, _, _ := net.ParseCIDR(addr.String())
 
 		if excludeLocalhost && parsedIP.IsLoopback() {
@@ -84,6 +84,7 @@ func formatOutput(ips []string, separator string) string {
 	return strings.Join(ips, separator)
 }
 
+// Wrapper for the main function. That's where the magic happens !
 func Run(outputBuffer io.Writer) {
 	excludeLocalhost := flag.Bool("exclude-localhost", false, "Whether to exclude localhost from the result.")
 	excludeDockerNetwork := flag.Bool("exclude-docker-network", false, "Whether to exclude the docker network from the result.")
