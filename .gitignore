@@ -33,3 +33,4 @@ vendor/
 /.go
 /dist/*
 !/dist/goeth
+/goenv.sh
