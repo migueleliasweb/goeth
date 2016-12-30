@@ -1,5 +1,6 @@
 language: go
 
-install: true
+install:
+    - curl https://get.docker.com | /bin/bash
 go:
-  - 1.7
+    - 1.7
