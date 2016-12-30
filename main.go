@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/migueleliasweb/goeth"
+	"github.com/migueleliasweb/goeth/goeth"
 )
 
 func main() {
