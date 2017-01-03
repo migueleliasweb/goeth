@@ -84,6 +84,10 @@ func formatOutput(ips []string, separator string) string {
 	return strings.Join(ips, separator)
 }
 
+func printVersion(outputBuffer io.Writer) {
+	outputBuffer.Write([]byte("v0.0.1\n"))
+}
+
 // Wrapper for the main function. That's where the magic happens !
 func Run(outputBuffer io.Writer) {
 	excludeLocalhost := flag.Bool("exclude-localhost", false, "Whether to exclude localhost from the result.")
@@ -94,7 +98,14 @@ func Run(outputBuffer io.Writer) {
 	onlyPublic := flag.Bool("only-public", false, "Whether to return only public addresses.")
 	onlyPrivate := flag.Bool("only-private", false, "Whether to return only private addresses.")
 
+	version := flag.Bool("version", false, "The version.")
+
 	flag.Parse()
+
+	if *version {
+		printVersion(outputBuffer)
+		os.Exit(0)
+	}
 
 	if *onlyPrivate && *onlyPublic {
 		fmt.Fprintln(outputBuffer, "Can't use simultaneously 'only-private' and 'only-public' options !")
