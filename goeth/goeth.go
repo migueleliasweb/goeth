@@ -56,7 +56,8 @@ func excludePublicIPs(ips []string) []string {
 func getIps(
 	excludeLocalhost bool,
 	excludeDockerNetwork bool,
-	allowipv6 bool) []string {
+	allowipv6 bool,
+	docker0NetworkName string) []string {
 
 	addresses, _ := net.InterfaceAddrs()
 	ips := make([]string, 0)
@@ -94,6 +95,8 @@ func Run(outputBuffer io.Writer) {
 	onlyPublic := flag.Bool("only-public", false, "Whether to return only public addresses.")
 	onlyPrivate := flag.Bool("only-private", false, "Whether to return only private addresses.")
 
+	docker0NetworkName := flag.String("docker0network", "docker0", "Docker0 network name.")
+
 	flag.Parse()
 
 	if *onlyPrivate && *onlyPublic {
@@ -105,6 +108,7 @@ func Run(outputBuffer io.Writer) {
 		*excludeLocalhost,
 		*excludeDockerNetwork,
 		*allowipv6,
+		*docker0NetworkName,
 	)
 
 	if *onlyPrivate {

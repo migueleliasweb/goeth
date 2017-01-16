@@ -64,7 +64,7 @@ func TestExcludePublicIPs(t *testing.T) {
 }
 
 func TestGetIPs(t *testing.T) {
-	result := getIps(false, false, true)
+	result := getIps(false, false, true, "docker0")
 
 	if len(result) == 0 {
 		t.Errorf("Could not find any IP")
